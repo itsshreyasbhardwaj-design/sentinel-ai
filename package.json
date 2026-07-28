@@ -1,0 +1,41 @@
+{
+  "name": "sentinel-ai",
+  "version": "0.1.0",
+  "private": true,
+  "description": "AI-native application security platform",
+  "license": "MIT",
+  "packageManager": "pnpm@11.17.0",
+  "engines": {
+    "node": ">=22.5.0"
+  },
+  "scripts": {
+    "dev": "pnpm --filter @sentinel/web dev",
+    "build": "pnpm --filter @sentinel/core build && pnpm --filter @sentinel/scanners build && pnpm --filter @sentinel/ai build && pnpm --filter @sentinel/reports build && pnpm --filter @sentinel/platform build && pnpm --filter @sentinel/cli build && pnpm --filter @sentinel/web build",
+    "build:packages": "pnpm --filter @sentinel/core build && pnpm --filter @sentinel/scanners build && pnpm --filter @sentinel/ai build && pnpm --filter @sentinel/reports build && pnpm --filter @sentinel/platform build && pnpm --filter @sentinel/cli build",
+    "typecheck": "pnpm build:packages && pnpm -r typecheck",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write \"**/*.{ts,tsx,md,json,yml,yaml}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,md,json,yml,yaml}\"",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "test:e2e": "playwright test",
+    "scan": "node packages/cli/dist/bin.js",
+    "verify": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm test && pnpm --filter @sentinel/web build"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@playwright/test": "^1.62.0",
+    "@types/node": "^22.10.5",
+    "@typescript-eslint/eslint-plugin": "^8.20.0",
+    "@typescript-eslint/parser": "^8.20.0",
+    "@vitest/coverage-v8": "^2.1.8",
+    "eslint": "^9.18.0",
+    "eslint-config-prettier": "^9.1.0",
+    "prettier": "^3.4.2",
+    "typescript": "^5.7.3",
+    "typescript-eslint": "^8.65.0",
+    "vitest": "^2.1.8"
+  }
+}
