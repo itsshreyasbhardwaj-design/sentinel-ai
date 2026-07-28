@@ -1,0 +1,19 @@
+# Intentionally insecure fixture for Sentinel AI's test suite. Do not deploy.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api
+spec:
+  template:
+    spec:
+      hostNetwork: true
+      hostPID: true
+      containers:
+        - name: api
+          image: example/api:latest
+          securityContext:
+            privileged: true
+            allowPrivilegeEscalation: true
+          env:
+            - name: DB_PASSWORD
+              value: hunter2ProductionPassword

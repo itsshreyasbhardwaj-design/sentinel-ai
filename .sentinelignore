@@ -1,0 +1,29 @@
+# Sentinel's own scan configuration.
+#
+# A security tool is an unusual codebase: its rule definitions, test fixtures
+# and documentation examples all contain deliberately insecure patterns and
+# example credentials. Scanning them produces findings that are technically
+# correct detections but say nothing about the security of this repository.
+#
+# Syntax is a subset of .gitignore. See docs/extending.md.
+
+# Deliberately vulnerable code, used to prove the scanners work.
+fixtures/
+
+# Test files carry example credentials and vulnerable snippets by design.
+*.test.ts
+
+# The knowledge base contains "before" code samples showing the vulnerable
+# pattern next to the fix. That is the whole point of it.
+packages/ai/src/knowledge/
+
+# Rule definitions are regular expressions that describe insecure code, so they
+# necessarily contain fragments that look insecure.
+packages/scanners/src/rules/
+
+# Build output and coverage reports.
+dist/
+coverage/
+.next/
+playwright-report/
+test-results/
