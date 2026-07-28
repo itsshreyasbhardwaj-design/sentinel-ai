@@ -97,10 +97,7 @@ describe('secret scanning precision', () => {
   it('still flags a live credential on an uncommented line below a comment', async () => {
     const result = await scan(
       {
-        'app.env': [
-          '# Production configuration',
-          `STRIPE_SECRET_KEY=${sample.stripe}`,
-        ].join('\n'),
+        'app.env': ['# Production configuration', `STRIPE_SECRET_KEY=${sample.stripe}`].join('\n'),
       },
       ['secrets'],
     );
