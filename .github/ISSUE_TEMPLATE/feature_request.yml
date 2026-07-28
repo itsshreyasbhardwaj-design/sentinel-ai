@@ -1,0 +1,51 @@
+name: Feature request
+description: Suggest a capability or improvement
+labels: [enhancement, needs-triage]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem are you trying to solve?
+      description: >
+        Describe the situation you are in, not the solution you have in mind.
+        Understanding the problem usually changes what the right answer is.
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: What would you like Sentinel to do?
+    validations:
+      required: true
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Which area?
+      options:
+        - Detection rule
+        - New scanner integration
+        - Language support
+        - AI analysis and explanations
+        - Dashboard
+        - REST API
+        - Reports and exports
+        - Compliance frameworks
+        - CI integration
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives you considered
+      description: Including doing nothing, or handling it outside Sentinel.
+
+  - type: checkboxes
+    id: contribution
+    attributes:
+      label: Contribution
+      options:
+        - label: I would be willing to open a pull request for this

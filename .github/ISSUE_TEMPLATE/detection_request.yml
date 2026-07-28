@@ -1,0 +1,52 @@
+name: Detection request
+description: Sentinel missed something, or flagged something it should not have
+labels: [detection, needs-triage]
+body:
+  - type: dropdown
+    id: kind
+    attributes:
+      label: Which is it?
+      options:
+        - False negative — Sentinel should have flagged this
+        - False positive — Sentinel flagged safe code
+    validations:
+      required: true
+
+  - type: textarea
+    id: sample
+    attributes:
+      label: Code sample
+      description: The smallest snippet that demonstrates it. Redact anything sensitive.
+      render: text
+    validations:
+      required: true
+
+  - type: input
+    id: language
+    attributes:
+      label: Language
+      placeholder: TypeScript, Python, Go, …
+    validations:
+      required: true
+
+  - type: input
+    id: rule
+    attributes:
+      label: Rule id
+      description: For a false positive, the `ruleId` from the finding.
+
+  - type: textarea
+    id: reasoning
+    attributes:
+      label: Why is this a problem (or why is it safe)?
+      description: >
+        For a false negative, what makes the code exploitable. For a false
+        positive, what makes it safe — this is what we encode as the guard.
+    validations:
+      required: true
+
+  - type: input
+    id: cwe
+    attributes:
+      label: CWE or OWASP reference
+      placeholder: CWE-89, A03:2021, LLM01:2025
