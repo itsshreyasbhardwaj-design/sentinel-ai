@@ -30,7 +30,7 @@ export async function GET(
   }
 
   const job = await platform.queue.get(jobId);
-  if (!job) {
+  if (!job || job.ownerId !== auth.user.id) {
     const error = errors.notFound('Job');
     return Response.json(error.toJSON(), { status: error.status });
   }

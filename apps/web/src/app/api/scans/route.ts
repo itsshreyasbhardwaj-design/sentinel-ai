@@ -49,7 +49,7 @@ export const POST = handle(
         ...input.options,
         allowNetwork: platform.env.ALLOW_NETWORK_SCANNERS && (input.options?.allowNetwork ?? true),
       },
-    });
+    }, user.id);
 
     logger.info('Scan enqueued', {
       jobId: job.id,
@@ -83,7 +83,7 @@ export const GET = handle(
 
     if (jobId) {
       const job = await platform.queue.get(jobId);
-      if (!job) throw errors.notFound('Job');
+      if (!job || job.ownerId !== user.id) throw errors.notFound('Job');
 
       return json({
         jobId: job.id,

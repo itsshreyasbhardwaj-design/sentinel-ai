@@ -15,6 +15,8 @@ export type JobStatus = 'queued' | 'running' | 'completed' | 'failed' | 'cancell
 export interface Job<T = unknown> {
   id: string;
   type: string;
+  /** Who this job belongs to — required so job-status routes can enforce ownership. */
+  ownerId: string;
   status: JobStatus;
   createdAt: string;
   startedAt?: string;
@@ -40,7 +42,7 @@ export type JobHandler<TInput, TOutput> = (
 export interface JobQueue {
   readonly kind: 'in-process' | 'trigger.dev';
   register<TInput, TOutput>(type: string, handler: JobHandler<TInput, TOutput>): void;
-  enqueue<TInput>(type: string, input: TInput): Promise<Job>;
+  enqueue<TInput>(type: string, input: TInput, ownerId: string): Promise<Job>;
   get(jobId: string): Promise<Job | undefined>;
   cancel(jobId: string): Promise<boolean>;
   /** Async iterator of progress events, used to drive the SSE endpoint. */
@@ -90,7 +92,7 @@ export class InProcessQueue implements JobQueue {
     this.handlers.set(type, handler as JobHandler<never, unknown>);
   }
 
-  async enqueue<TInput>(type: string, input: TInput): Promise<Job> {
+  async enqueue<TInput>(type: string, input: TInput, ownerId: string): Promise<Job> {
     if (this.shuttingDown) throw toSentinelError(new Error('Queue is shutting down'));
     if (!this.handlers.has(type)) {
       throw toSentinelError(new Error(`No handler registered for job type "${type}"`));
@@ -99,6 +101,7 @@ export class InProcessQueue implements JobQueue {
     const job: Job = {
       id: newId('job'),
       type,
+      ownerId,
       status: 'queued',
       createdAt: new Date().toISOString(),
       attempts: 0,

@@ -146,7 +146,7 @@ export async function POST(request: Request): Promise<Response> {
         timeoutMs: platform.env.SCAN_TIMEOUT_MS,
         allowNetwork: platform.env.ALLOW_NETWORK_SCANNERS,
       },
-    });
+    }, ownerId);
 
     logger.info('Webhook scan enqueued', {
       event,

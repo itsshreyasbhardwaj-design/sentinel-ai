@@ -79,7 +79,7 @@ export const POST = handle(
           timeoutMs: platform.env.SCAN_TIMEOUT_MS,
           allowNetwork: platform.env.ALLOW_NETWORK_SCANNERS,
         },
-      });
+      }, user.id);
 
       logger.info('Archive upload accepted', {
         jobId: job.id,
