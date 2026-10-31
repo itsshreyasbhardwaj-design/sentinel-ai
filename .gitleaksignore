@@ -1,0 +1,31 @@
+# gitleaks allowlist — audited exceptions only.
+#
+# Every fingerprint below was inspected during an account-wide security audit
+# and confirmed to be a deliberate test fixture, an example in documentation,
+# a redaction/secret-scanning test's own input, or vendored upstream code.
+# None is a live credential.
+#
+# This file lists FINGERPRINTS, not paths or rules, on purpose: a fingerprint
+# pins one specific finding at one location. A NEW secret added to any of the
+# same files still fails the scan. Do not replace these with path globs.
+#
+# If a finding here ever turns out to be real, delete its line rather than
+# editing it, so the scanner reports it again.
+
+# fixtures/vulnerable-app/Dockerfile  [generic-api-key]
+fixtures/vulnerable-app/Dockerfile:generic-api-key:4
+
+# fixtures/vulnerable-app/Dockerfile  [generic-api-key]
+150f93955548a2476558f507e80f0326615e937c:fixtures/vulnerable-app/Dockerfile:generic-api-key:4
+
+# fixtures/vulnerable-app/env.template  [generic-api-key]
+fixtures/vulnerable-app/env.template:generic-api-key:17
+
+# fixtures/vulnerable-app/env.template  [generic-api-key]
+150f93955548a2476558f507e80f0326615e937c:fixtures/vulnerable-app/env.template:generic-api-key:17
+
+# fixtures/vulnerable-app/src/agent.py  [generic-api-key]
+fixtures/vulnerable-app/src/agent.py:generic-api-key:13
+
+# fixtures/vulnerable-app/src/agent.py  [generic-api-key]
+150f93955548a2476558f507e80f0326615e937c:fixtures/vulnerable-app/src/agent.py:generic-api-key:13
