@@ -19,6 +19,7 @@ updates:
       prefix-development: 'chore(deps-dev)'
 
   - package-ecosystem: github-actions
+    open-pull-requests-limit: 0
     directory: /
     schedule:
       interval: monthly
